@@ -10,7 +10,7 @@ OUTPUT_DIR="./trbench_results"
 # evaluate Qwen3-4B-Thinking-2507 on TRBench-BFCL
 MODEL_NAME="Qwen3-4B-Thinking-2507"
 MODEL_DIR="Qwen/Qwen3-4B-Thinking-2507"
-python eval/eval_trbench-bfcl_local.py \
+python eval/eval_trbench_local.py \
     --local_llm_name ${MODEL_NAME} \
     --local_llm_dir ${MODEL_DIR} \
     --base_data_dir ${BASE_DATA_DIR} \
@@ -21,7 +21,7 @@ python eval/eval_trbench-bfcl_local.py \
 MODEL_CKPT_DIR="./model_ckpt"
 MODEL_NAME="ToolRM-Qwen3-4B-Thinking-2507"
 MODEL_DIR=${MODEL_CKPT_DIR}/ToolRM-Qwen3-4B-Thinking-2507
-python eval/eval_trbench-bfcl_local.py \
+python eval/eval_trbench_local.py \
     --local_llm_name ${MODEL_NAME} \
     --local_llm_dir ${MODEL_DIR} \
     --base_data_dir ${BASE_DATA_DIR} \
