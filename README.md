@@ -22,7 +22,7 @@
 
 ## :newspaper: News
 
-- [10/2025]: We have released the training and evaluation datasets and the ToolRM model checkpoints in [this huggingface collection](https://huggingface.co/collections/RioLee/toolrm).
+- [2025-11-10]: Datasets and ToolRM model checkpoints have been released in this [huggingface collection](https://huggingface.co/collections/RioLee/toolrm).
 
 ## :rocket: Quick Start
 
