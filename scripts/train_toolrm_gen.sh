@@ -5,7 +5,7 @@ PROJECT_NAME="<YOUR_PROJECT_NAME>"
 EXPERIMENT_NAME="<YOUR_EXPERIMENT_NAME>"
 MODEL_CKPT_HOME='<YOUR_MODEL_CHECKPOINT_DIR>'
 
-# step-1: train ToolRM-Qwen3-4B-Thinking-2507 on 8 * NVIDIA A100-80G
+# step-1: train ToolRM-Gen-Qwen3-4B-Thinking-2507 on 8 * NVIDIA A100-80G
 VERL_USE_MODELSCOPE=True \
 python3 -m verl.trainer.main_ppo \
     algorithm.adv_estimator=grpo \
@@ -47,7 +47,7 @@ python3 -m verl.trainer.main_ppo \
     trainer.total_epochs=1 \
     trainer.resume_mode=auto$@
 
-# step-2: 
+# step-2: Convert checkpoint format
 python -m verl.model_merger merge \
     --backend fsdp \
     --local_dir verl/checkpoints/$PROJECT_NAME/$EXPERIMENT_NAME/global_step_220/actor \

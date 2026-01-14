@@ -13,32 +13,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from transformers import AutoTokenizer
-from vllm import LLM, SamplingParams
-from datasets import load_dataset
-
-import numpy as np
-import jsonlines
-import argparse
 import os
 import re
+import argparse
+import numpy as np
+from datasets import load_dataset
+from vllm import LLM, SamplingParams
+from transformers import AutoTokenizer
+
+from utils import jsonl_load, jsonl_dump
 
 # Use additional parameters to determine the thinking mode of the model.
 ADD_ENABLE_THINKING_TO_TOKENIZER = [
     'qwen3-4b',
     'qwen3-8b',
 ]
-
-def jsonl_load(path: str):
-    with jsonlines.open(path, "r") as reader:
-        res = list(reader)
-    return res
-
-
-def jsonl_dump(data, path: str, mode: str="w"):
-    with jsonlines.open(path, mode) as writer:
-        for item in data:
-            writer.write(item)
 
 
 def extract_answer_from_text(text: str):
@@ -135,8 +124,7 @@ if __name__ == "__main__":
 
     # Generate outputs with local-deployed llm
     if load_exist_results:
-        with jsonlines.open(query_output_dir, 'r') as reader:
-            query_outputs = list(reader)
+        query_outputs = jsonl_load(query_output_dir)
 
     else:
         temperature = float(os.environ.get("TEMPERATURE")) if os.environ.get("TEMPERATURE") is not None else 0
@@ -220,8 +208,8 @@ if __name__ == "__main__":
     val_res_batch_1 = all_val_res[:len(all_val_res)//2]
     val_res_batch_2 = all_val_res[len(all_val_res)//2:]
     all_task_val_res = [res_1 * res_2 for res_1, res_2 in zip(val_res_batch_1, val_res_batch_2)]
-    print(f"Average test score per sample: {np.mean(all_task_val_res)}")
+    print(f"Average test score per sample (W-Avg): {np.mean(all_task_val_res):.4f}")
     print("-"*50)
     for task_source, scores in val_res_by_task_source.items():
         task_val_res = [res_1 * res_2 for res_1, res_2 in zip(scores[:len(scores)//2], scores[len(scores)//2:])]
-        print(f"Average test score in {task_source}: {np.mean(task_val_res)}")
+        print(f"Average test score in {task_source}: {np.mean(task_val_res):.4f}")

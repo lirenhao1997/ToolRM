@@ -17,10 +17,10 @@ python eval/eval_trbench_local.py \
     --output_dir ${OUTPUT_DIR} \
     --llm_infer_mode think
 
-# evaluate ToolRM on TRBench-BFCL
+# evaluate ToolRM-Gen on TRBench-BFCL
 MODEL_CKPT_DIR="./model_ckpt"
-MODEL_NAME="ToolRM-Qwen3-4B-Thinking-2507"
-MODEL_DIR=${MODEL_CKPT_DIR}/ToolRM-Qwen3-4B-Thinking-2507
+MODEL_NAME="ToolRM-Gen-Qwen3-4B-Thinking-2507"
+MODEL_DIR=${MODEL_CKPT_DIR}/${MODEL_NAME}
 python eval/eval_trbench_local.py \
     --local_llm_name ${MODEL_NAME} \
     --local_llm_dir ${MODEL_DIR} \
